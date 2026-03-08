@@ -32,35 +32,35 @@ public:
    /////////////////////////////////////////
    T& operator[]( int iIndex )
    {
-      rAssert( (iIndex < mSize) && (iIndex > -1) );
-      return mpData[iIndex];
+      rAssert( (iIndex < this->mSize) && (iIndex > -1) );
+      return this->mpData[iIndex];
    }
 
    void Allocate( int iSize )
    {
-      Clear();
-      mSize = iSize;
+      this->Clear();
+      this->mSize = iSize;
 
 #ifdef RAD_GAMECUBE
       //HeapMgr()->PushHeap( GMA_GC_VMM );
 #endif
 
-      mpData = new T[mSize];
+      this->mpData = new T[this->mSize];
 
 #ifdef RAD_GAMECUBE
       //HeapMgr()->PopHeap( GMA_GC_VMM );
 #endif
 
-      rAssert(mSize>0);
-      rAssert(mpData!=NULL);
+      rAssert(this->mSize>0);
+      rAssert(this->mpData!=NULL);
    }
 
    void Clear()
    {
-      if( mpData != NULL )
+      if( this->mpData != NULL )
       {
-         delete[] mpData;
-         mpData = NULL;
+         delete[] this->mpData;
+         this->mpData = NULL;
       }
    }
 

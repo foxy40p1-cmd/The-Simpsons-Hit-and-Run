@@ -70,7 +70,7 @@ const ControlMap FMV_CONTROL_MAP[] =
     #endif
 #endif // RAD_GAMECUBE
 
-#ifdef RAD_PS2
+#if defined(RAD_PS2) || defined(RAD_PS3)
     { "Start",          FMVInput::Start},
     { "X",              FMVInput::Skip },
     { "DPadLeft",       FMVInput::UNKNOWN },

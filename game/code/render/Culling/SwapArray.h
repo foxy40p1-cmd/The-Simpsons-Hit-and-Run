@@ -39,134 +39,134 @@ public:
    void Remove( int iIndex )
    {
       //A pointer safe swap-out
-      ASSSERT( (iIndex<mUseSize) );
-      mSwapT = mpData[iIndex]; 
-      mpData[iIndex] = mpData[mUseSize-1];
-      mpData[mUseSize-1] = mSwapT;
-      mUseSize--;
+      ASSSERT( (iIndex<this->mUseSize) );
+      this->mSwapT = this->mpData[iIndex]; 
+      this->mpData[iIndex] = this->mpData[this->mUseSize-1];
+      this->mpData[this->mUseSize-1] = this->mSwapT;
+      this->mUseSize--;
    }
 
    void RemoveKeepOrder( int iIndex )
    {
       //A pointer safe swap-out
-      ASSSERT( (iIndex<mUseSize) );
-      mSwapT = mpData[iIndex]; 
-      while(iIndex<mUseSize-1)
+      ASSSERT( (iIndex<this->mUseSize) );
+      this->mSwapT = this->mpData[iIndex]; 
+      while(iIndex<this->mUseSize-1)
       {
-          mpData[iIndex] = mpData[iIndex+1];
+          this->mpData[iIndex] = this->mpData[iIndex+1];
           iIndex++;
       }
-      mpData[mUseSize-1] = mSwapT;
-      mUseSize--;
+      this->mpData[this->mUseSize-1] = this->mSwapT;
+      this->mUseSize--;
    }
 
    void Swap( int iIndex1, int iIndex2 )
    {
       //A pointer safe swap-out
-      ASSSERT( (iIndex1<mUseSize) && (iIndex2<mUseSize) );
-      mSwapT = mpData[iIndex1]; 
-      mpData[iIndex1] = mpData[iIndex2];
-      mpData[iIndex2] = mSwapT;
+      ASSSERT( (iIndex1<this->mUseSize) && (iIndex2<this->mUseSize) );
+      this->mSwapT = this->mpData[iIndex1]; 
+      this->mpData[iIndex1] = this->mpData[iIndex2];
+      this->mpData[iIndex2] = this->mSwapT;
    }
 
    void Init( int iIndex, T& irVal )
    {
-      ASSSERT( (iIndex>=mUseSize)&&(iIndex<mSize) );
-      mUseSize = iIndex+1;
-      mpData[iIndex] = irVal;
+      ASSSERT( (iIndex>=this->mUseSize)&&(iIndex<this->mSize) );
+      this->mUseSize = iIndex+1;
+      this->mpData[iIndex] = irVal;
    }
 
    void ClearUse()
    {
-      ASSSERT(IsSetUp());
-      mUseSize = 0;
+      ASSSERT(this->IsSetUp());
+      this->mUseSize = 0;
    }
 
    void Use( int iIndex )
    {
-      ASSSERT( (iIndex>=mUseSize)&&(iIndex<mSize) );
-      mUseSize = iIndex+1;
+      ASSSERT( (iIndex>=this->mUseSize)&&(iIndex<this->mSize) );
+      this->mUseSize = iIndex+1;
    }
 
    void AddUse( int iCountSize )
    {
-      ASSSERT( (iCountSize+mUseSize)<=mSize );
-      mUseSize += iCountSize;
+      ASSSERT( (iCountSize+this->mUseSize)<=this->mSize );
+      this->mUseSize += iCountSize;
    }
 
    void Add( T& irVal )
    {
-      ASSSERT(mUseSize<mSize);
-      mpData[mUseSize] = irVal;
-      mUseSize++;
+      ASSSERT(this->mUseSize<this->mSize);
+      this->mpData[this->mUseSize] = irVal;
+      this->mUseSize++;
    }
 
    void Add( const T& irVal )
    {
-      ASSSERT(mUseSize<mSize);
-      mpData[mUseSize] = irVal;
-      mUseSize++;
+      ASSSERT(this->mUseSize<this->mSize);
+      this->mpData[this->mUseSize] = irVal;
+      this->mUseSize++;
    }
 
    T& operator[]( int iIndex )
    {
-      ASSSERT( (iIndex < mUseSize) && (iIndex > -1));
-      return mpData[iIndex];
+      ASSSERT( (iIndex < this->mUseSize) && (iIndex > -1));
+      return this->mpData[iIndex];
    }
    
    const T& operator[]( int iIndex )const
    {
-      ASSSERT( (iIndex < mUseSize) && (iIndex > -1));
-      return mpData[iIndex];
+      ASSSERT( (iIndex < this->mUseSize) && (iIndex > -1));
+      return this->mpData[iIndex];
    }
 
    void Reserve( int iCount )
    {
       // UseSize is used during the 
       // unallocated state to count the reservations
-      ASSSERT( !IsSetUp() );
-      mUseSize += iCount;
+      ASSSERT( !this->IsSetUp() );
+      this->mUseSize += iCount;
    }
 
    void Allocate()
    {
-      ASSSERT( !IsSetUp() );
-      if( mUseSize == 0 )
+      ASSSERT( !this->IsSetUp() );
+      if( this->mUseSize == 0 )
       {
-         mSize = mUseSize;
-         mpData = NULL;
+         this->mSize = this->mUseSize;
+         this->mpData = NULL;
       }
       else
       {
-         mSize = mUseSize;
-         mpData = new T[mSize];
-         ASSSERT(mSize>0);
-         ASSSERT(mpData!=NULL);
-         mUseSize = 0;
+         this->mSize = this->mUseSize;
+         this->mpData = new T[this->mSize];
+         ASSSERT(this->mSize>0);
+         ASSSERT(this->mpData!=NULL);
+         this->mUseSize = 0;
       }
    }
 
    void Allocate( int iSize )
    {
-      ASSSERT( mUseSize == 0 );
+      ASSSERT( this->mUseSize == 0 );
       //TODO: wha?
-      if( !IsSetUp() )
-         iSize += mUseSize;
-      Clear();
-      mSize = iSize;
-      mpData = new T[mSize];
-      ASSSERT(mSize>0);
-      ASSSERT(mpData!=NULL);
+      if( !this->IsSetUp() )
+         iSize += this->mUseSize;
+      this->Clear();
+      this->mSize = iSize;
+      this->mpData = new T[this->mSize];
+      ASSSERT(this->mSize>0);
+      ASSSERT(this->mpData!=NULL);
    }
 
    void Clear()
    {
-      if( mpData != NULL )
+      if( this->mpData != NULL )
       {
-         delete[] mpData;
+         delete[] this->mpData;
       }
-      mpData = NULL;
-      mUseSize = 0;
+      this->mpData = NULL;
+      this->mUseSize = 0;
    }
 
    bool IsSetUp()
@@ -229,129 +229,129 @@ public:
    void Remove( int iIndex )
    {
       //A pointer safe swap-out
-      ASSSERT( (iIndex<mUseSize) );
-      mSwapT = mpData[iIndex]; 
-      mpData[iIndex] = mpData[mUseSize-1];
-      mpData[mUseSize-1] = mSwapT;
-      mUseSize--;
+      ASSSERT( (iIndex<this->mUseSize) );
+      this->mSwapT = this->mpData[iIndex]; 
+      this->mpData[iIndex] = this->mpData[this->mUseSize-1];
+      this->mpData[this->mUseSize-1] = this->mSwapT;
+      this->mUseSize--;
    }
 
    void RemoveKeepOrder( int iIndex )
    {
       //A pointer safe swap-out
-      ASSSERT( (iIndex<mUseSize) );
-      mSwapT = mpData[iIndex]; 
-      while(iIndex<mUseSize-1)
+      ASSSERT( (iIndex<this->mUseSize) );
+      this->mSwapT = this->mpData[iIndex]; 
+      while(iIndex<this->mUseSize-1)
       {
-          mpData[iIndex] = mpData[iIndex+1];
+          this->mpData[iIndex] = this->mpData[iIndex+1];
           iIndex++;
       }
-      mpData[mUseSize-1] = mSwapT;
-      mUseSize--;
+      this->mpData[this->mUseSize-1] = this->mSwapT;
+      this->mUseSize--;
    }
 
    void Swap( int iIndex1, int iIndex2 )
    {
       //A pointer safe swap-out
-      ASSSERT( (iIndex1<mUseSize) && (iIndex2<mUseSize) );
-      mSwapT = mpData[iIndex1]; 
-      mpData[iIndex1] = mpData[iIndex2];
-      mpData[iIndex2] = mSwapT;
+      ASSSERT( (iIndex1<this->mUseSize) && (iIndex2<this->mUseSize) );
+      this->mSwapT = this->mpData[iIndex1]; 
+      this->mpData[iIndex1] = this->mpData[iIndex2];
+      this->mpData[iIndex2] = this->mSwapT;
    }
 
    void Init( int iIndex, T& irVal )
    {
-      ASSSERT( (iIndex>=mUseSize)&&(iIndex<mSize) );
-      mUseSize = iIndex+1;
-      mpData[iIndex] = irVal;
+      ASSSERT( (iIndex>=this->mUseSize)&&(iIndex<this->mSize) );
+      this->mUseSize = iIndex+1;
+      this->mpData[iIndex] = irVal;
    }
 
    void ClearUse()
    {
-      ASSSERT(IsSetUp());
-      mUseSize = 0;
+      ASSSERT(this->IsSetUp());
+      this->mUseSize = 0;
    }
 
    void Use( int iIndex )
    {
-      ASSSERT( (iIndex>=mUseSize)&&(iIndex<mSize) );
-      mUseSize = iIndex+1;
+      ASSSERT( (iIndex>=this->mUseSize)&&(iIndex<this->mSize) );
+      this->mUseSize = iIndex+1;
    }
 
    void AddUse( int iCountSize )
    {
-      ASSSERT( (iCountSize+mUseSize)<=mSize );
-      mUseSize += iCountSize;
+      ASSSERT( (iCountSize+this->mUseSize)<=this->mSize );
+      this->mUseSize += iCountSize;
    }
 
    bool Add( T& irVal )
    {
-      if(mUseSize>=mSize)
+      if(this->mUseSize>=this->mSize)
           return false;
-      mpData[mUseSize] = irVal;
-      mUseSize++;
+      this->mpData[this->mUseSize] = irVal;
+      this->mUseSize++;
       return true;
    }
 
    T& operator[]( int iIndex )
    {
-      ASSSERT( (iIndex < mUseSize) && (iIndex > -1));
-      return mpData[iIndex];
+      ASSSERT( (iIndex < this->mUseSize) && (iIndex > -1));
+      return this->mpData[iIndex];
    }
    
    const T& operator[]( int iIndex )const
    {
-      ASSSERT( (iIndex < mUseSize) && (iIndex > -1));
-      return mpData[iIndex];
+      ASSSERT( (iIndex < this->mUseSize) && (iIndex > -1));
+      return this->mpData[iIndex];
    }
 
    void Reserve( int iCount )
    {
       // UseSize is used during the 
       // unallocated state to count the reservations
-      ASSSERT( !IsSetUp() );
-      mUseSize += iCount;
+      ASSSERT( !this->IsSetUp() );
+      this->mUseSize += iCount;
    }
 
    void Allocate()
    {
-      ASSSERT( !IsSetUp() );
-      if( mUseSize == 0 )
+      ASSSERT( !this->IsSetUp() );
+      if( this->mUseSize == 0 )
       {
-         mSize = mUseSize;
-         mpData = NULL;
+         this->mSize = this->mUseSize;
+         this->mpData = NULL;
       }
       else
       {
-         mSize = mUseSize;
-         mpData = new T[mSize];
-         ASSSERT(mSize>0);
-         ASSSERT(mpData!=NULL);
-         mUseSize = 0;
+         this->mSize = this->mUseSize;
+         this->mpData = new T[this->mSize];
+         ASSSERT(this->mSize>0);
+         ASSSERT(this->mpData!=NULL);
+         this->mUseSize = 0;
       }
    }
 
    void Allocate( int iSize )
    {
-      ASSSERT( mUseSize == 0 );
+      ASSSERT( this->mUseSize == 0 );
       //TODO: wha?
-      if( !IsSetUp() )
-         iSize += mUseSize;
-      Clear();
-      mSize = iSize;
-      mpData = new T[mSize];
-      ASSSERT(mSize>0);
-      ASSSERT(mpData!=NULL);
+      if( !this->IsSetUp() )
+         iSize += this->mUseSize;
+      this->Clear();
+      this->mSize = iSize;
+      this->mpData = new T[this->mSize];
+      ASSSERT(this->mSize>0);
+      ASSSERT(this->mpData!=NULL);
    }
 
    void Clear()
    {
-      if( mpData != NULL )
+      if( this->mpData != NULL )
       {
-         delete[] mpData;
+         delete[] this->mpData;
       }
-      mpData = NULL;
-      mUseSize = 0;
+      this->mpData = NULL;
+      this->mUseSize = 0;
    }
 
    bool IsSetUp()

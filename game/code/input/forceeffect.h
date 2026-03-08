@@ -17,7 +17,7 @@
 //========================================
 #include <radcontroller.hpp>
 
-#ifdef RAD_GAMECUBE
+#if defined(RAD_GAMECUBE) && !defined(RAD_PS3)
 #include <dolphin/lg.h>
 #endif
 
@@ -30,7 +30,7 @@
 #include <dinput.h>
 #endif
 
-#if defined(RAD_PS2) || defined(RAD_WIN32)
+#if defined(RAD_PS2) || defined(RAD_WIN32) || defined(RAD_PS3)
 typedef char s8;
 typedef unsigned char u8;
 typedef short s16;
@@ -84,7 +84,9 @@ protected:
     DWORD         m_currentTime;
     DWORD         m_effectTime;
 #else
+    #ifndef RAD_PS3
     LGForceEffect mForceEffect;
+    #endif
 #endif
     bool mEffectDirty;
 

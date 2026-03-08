@@ -35,56 +35,56 @@ public:
    /////////////////////////////////////////
    void Init( int iIndex, T& irVal )
    {
-      rAssert( (iIndex>=mUseSize)&&(iIndex<mSize) );
-      mUseSize = iIndex+1;
-      mpData[iIndex] = irVal;
+      rAssert( (iIndex>=this->mUseSize)&&(iIndex<this->mSize) );
+      this->mUseSize = iIndex+1;
+      this->mpData[iIndex] = irVal;
    }
 
    void ClearUse()
    {
-      rAssert(IsSetUp());
-      mUseSize = 0;
+      rAssert(this->IsSetUp());
+      this->mUseSize = 0;
    }
 
    void Add( T& irVal )
    {
-      rAssert(mUseSize<mSize);
-      mpData[mUseSize] = irVal;
-      mUseSize++;
+      rAssert(this->mUseSize<this->mSize);
+      this->mpData[this->mUseSize] = irVal;
+      this->mUseSize++;
    }
 
    T& operator[]( int iIndex )
    {
-      rAssert( (iIndex < mUseSize) && (iIndex > -1));
-      return mpData[iIndex];
+      rAssert( (iIndex < this->mUseSize) && (iIndex > -1));
+      return this->mpData[iIndex];
    }
 
    void Allocate( int iSize )
    {
-      Clear();
-      mSize = iSize;
+      this->Clear();
+      this->mSize = iSize;
 #ifdef RAD_GAMECUBE
       HeapMgr()->PushHeap( GMA_GC_VMM );
 #endif
 
-      mpData = new T[mSize];
+      this->mpData = new T[this->mSize];
 
 #ifdef RAD_GAMECUBE
       HeapMgr()->PopHeap( GMA_GC_VMM );
 #endif
       rAssert(iSize>0);
-      rAssert(mpData!=NULL);
-      mUseSize = 0;
+      rAssert(this->mpData!=NULL);
+      this->mUseSize = 0;
    }
 
    void Clear()
    {
-      if( mpData != NULL )
+      if( this->mpData != NULL )
       {
-         delete[] mpData;
+         delete[] this->mpData;
       }
-      mpData = NULL;
-      mUseSize = 0;
+      this->mpData = NULL;
+      this->mUseSize = 0;
    }
 
    bool IsSetUp()

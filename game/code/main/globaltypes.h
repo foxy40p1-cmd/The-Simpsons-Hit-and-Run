@@ -27,4 +27,22 @@ typedef unsigned long long simpsonsUInt64;
 typedef unsigned __int64 simpsonsUInt64;
 #endif
 
+#ifdef RAD_PS3
+typedef unsigned long long simpsonsUInt64;
+typedef unsigned long long radTime64;
+typedef long long radInt64;
+typedef unsigned char PDDI_U8;
+typedef unsigned int PDDI_U32;
+typedef unsigned int P3D_U32;
+
+#ifndef NULL
+    #ifdef __cplusplus
+        #define NULL 0
+    #else
+        #define NULL ((void *)0)
+    #endif
+#endif
+
+#endif
+
 #endif //GLOBALTYPES_H

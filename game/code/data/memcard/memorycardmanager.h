@@ -32,7 +32,7 @@ namespace LoadingManager
 
 #include <radfile.hpp>
 
-#ifdef RAD_GAMECUBE
+#if defined(RAD_GAMECUBE) && !defined(RAD_PS3)
     #include <charPipeline/texPalette.h>
     #include <dolphin/dvd/DVDBanner.h>
 #endif

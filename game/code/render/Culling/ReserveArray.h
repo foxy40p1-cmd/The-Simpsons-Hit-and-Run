@@ -32,34 +32,34 @@ public:
    /////////////////////////////////////////
    void Init( int iIndex, T& irVal )
    {
-      rAssert( (iIndex>=mUseSize)&&(iIndex<mSize) );
-      mUseSize = iIndex+1;
-      mpData[iIndex] = irVal;
+      rAssert( (iIndex>=this->mUseSize)&&(iIndex<this->mSize) );
+      this->mUseSize = iIndex+1;
+      this->mpData[iIndex] = irVal;
    }
 
    void ClearUse()
    {
-      rAssert(IsSetUp());
-      mUseSize = 0;
+      rAssert(this->IsSetUp());
+      this->mUseSize = 0;
    }
 
    void Use( int iIndex )
    {
-      rAssert( (iIndex>=mUseSize)&&(iIndex<mSize) );
-      mUseSize = iIndex+1;
+      rAssert( (iIndex>=this->mUseSize)&&(iIndex<this->mSize) );
+      this->mUseSize = iIndex+1;
    }
 
    void AddUse( int iCountSize )
    {
-      rAssert( (iCountSize+mUseSize)<=mSize );
-      mUseSize += iCountSize;
+      rAssert( (iCountSize+this->mUseSize)<=this->mSize );
+      this->mUseSize += iCountSize;
    }
 
    void Add( T& irVal )
    {
-      rAssert(mUseSize<mSize);
-      mpData[mUseSize] = irVal;
-      mUseSize++;
+      rAssert(this->mUseSize<this->mSize);
+      this->mpData[this->mUseSize] = irVal;
+      this->mUseSize++;
    }
 
    T& operator[]( int iIndex )
@@ -72,54 +72,54 @@ public:
    {
       // UseSize is used during the 
       // unallocated state to count the reservations
-      rAssert( !IsSetUp() );
-      mUseSize += iCount;
+      rAssert( !this->IsSetUp() );
+      this->mUseSize += iCount;
    }
 
    void Allocate()
    {
-      rAssert( !IsSetUp() );
-      if( mUseSize == 0 )
+      rAssert( !this->IsSetUp() );
+      if( this->mUseSize == 0 )
       {
-         mSize = mUseSize;
-         mpData = NULL;
+         this->mSize = this->mUseSize;
+         this->mpData = NULL;
       }
       else
       {
-         mSize = mUseSize;
+         this->mSize = this->mUseSize;
 
 #ifdef RAD_GAMECUBE
          HeapMgr()->PushHeap( GMA_GC_VMM );
 #endif
 
-         mpData = new T[mSize];
-         rAssert(mSize>0);
-         rAssert(mpData!=NULL);
+         this->mpData = new T[this->mSize];
+         rAssert(this->mSize>0);
+         rAssert(this->mpData!=NULL);
 
 #ifdef RAD_GAMECUBE
          HeapMgr()->PopHeap( GMA_GC_VMM );
 #endif
 
-         mUseSize = 0;
+         this->mUseSize = 0;
       }
    }
 
    void Allocate( int iSize )
    {
-      rAssert( mUseSize == 0 );
+      rAssert( this->mUseSize == 0 );
       //TODO: wha?
-      if( !IsSetUp() )
-         iSize += mUseSize;
-      Clear();
-      mSize = iSize;
+      if( !this->IsSetUp() )
+         iSize += this->mUseSize;
+      this->Clear();
+      this->mSize = iSize;
 
 #ifdef RAD_GAMECUBE
       HeapMgr()->PushHeap( GMA_GC_VMM );
 #endif
 
-      mpData = new T[mSize];
-      rAssert(mSize>0);
-      rAssert(mpData!=NULL);
+      this->mpData = new T[this->mSize];
+      rAssert(this->mSize>0);
+      rAssert(this->mpData!=NULL);
 
 #ifdef RAD_GAMECUBE
       HeapMgr()->PopHeap( GMA_GC_VMM );

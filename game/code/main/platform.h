@@ -32,6 +32,7 @@ struct IRadDrive;
 class Platform : public IRadDriveErrorCallback
 {
     public:
+        virtual ~Platform() {}
         
         // NOTE: Each derived platform must also implement the following
         //       static function.  This has to be static because we need

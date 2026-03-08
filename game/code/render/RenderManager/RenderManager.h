@@ -159,7 +159,7 @@ private:
    void SetMotionBlurEnable( bool enable )  { mEnableMotionBlur = enable; }
    bool IsBlurEnabled() const               { return mEnableMotionBlur; }
 
-#ifdef RAD_PS2
+#if defined(RAD_PS2) || defined(RAD_PS3)
    void ApplyPS2Blur();
 #endif
    void AdjustBlurByFrameRate( unsigned int elapsedTime );

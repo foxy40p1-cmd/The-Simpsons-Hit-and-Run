@@ -7,7 +7,7 @@
 #include <raddebug.hpp>
 #include <radmath/radmath.hpp>
 
-#if defined(RAD_PS2) || defined(RAD_GAMECUBE)
+#if defined(RAD_PS2) || defined(RAD_GAMECUBE) || defined(RAD_PS3)
 #include <input/wheeldefines.h>
 #endif
 
@@ -141,7 +141,7 @@ mbIsRumbleOn( false )
         this->mMappable[ i ] = 0;
     }
 
-#if defined(RAD_PS2) || defined(RAD_GAMECUBE)
+#if defined(RAD_PS2) || defined(RAD_GAMECUBE) || defined(RAD_PS3)
     mHeavyWheelRumble.SetRumbleType( LG_TYPE_SQUARE );
 #endif
 }
@@ -313,7 +313,7 @@ void UserController::Initialize( IRadController* pIController2 )
     
         mbInputPointsRegistered = true;
 
-#if defined(RAD_GAMECUBE) || defined(RAD_PS2)
+#if defined(RAD_GAMECUBE) || defined(RAD_PS2) || defined(RAD_PS3)
         //Get the steering spring.
         IRadControllerOutputPoint* p_OutputPoint = m_xIController2->GetOutputPointByName( "CenterSpring" );
         if ( p_OutputPoint )
@@ -439,7 +439,7 @@ void UserController::ReleaseRadController( void )
 
 void UserController::SetRumble( bool bRumbleOn, bool pulse )
 {
-#if defined(RAD_GAMECUBE) || defined(RAD_PS2)
+#if defined(RAD_GAMECUBE) || defined(RAD_PS2) || defined(RAD_PS3)
     if ( bRumbleOn && !mbIsRumbleOn && !CommandLineOptions::Get( CLO_NO_HAPTIC ) )
     {
         mSteeringSpring.Start();
@@ -580,7 +580,7 @@ void UserController::Update( unsigned timeins )
     {
 #endif
 
-#if defined(RAD_GAMECUBE) || defined(RAD_PS2)
+#if defined(RAD_GAMECUBE) || defined(RAD_PS2) || defined(RAD_PS3)
         mSteeringSpring.Update();
         mSteeringDamper.Update();
         mConstantEffect.Update();

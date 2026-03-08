@@ -47,6 +47,9 @@
 #include <main/ps2platform.h>
 #include <libmtap.h>
 #endif
+#ifdef RAD_PS3
+#include <main/ps3platform.h>
+#endif
 
 #if defined RAD_XBOX
 
@@ -129,6 +132,9 @@ MEMTRACK_PUSH_GROUP( "InputManager" );
     // On PS2, check for initial button pushes.
     m_isProScanButtonsPressed = PS2Platform::GetInstance()->CheckForStartupButtons( );
     rDebugPrintf( "Do Progressive scan: %s\n", m_isProScanButtonsPressed ? "yup" : "nope" );
+#endif
+#ifdef RAD_PS3
+    m_isProScanButtonsPressed = PS3Platform::GetInstance()->CheckForStartupButtons( );
 #endif
 
     unsigned int i = 0;
@@ -407,7 +413,7 @@ m_isProScanButtonsPressed( false )
 #ifdef RAD_WIN32
     m_pFEMouse = new FEMouse;
 #endif
-#ifdef RAD_PS2
+#if defined(RAD_PS2) || defined(RAD_PS3)
     mLastMultitapStatus[0] = mLastMultitapStatus[1] = 0;
     mCurMultitapStatus[0] = mCurMultitapStatus[1] = 0;
 

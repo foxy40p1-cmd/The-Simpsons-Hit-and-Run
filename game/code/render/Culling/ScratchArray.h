@@ -120,9 +120,9 @@ public:
    //////////////////////////////////////////////////////////////////////////////
    void SetAll( T& irDefaultValue )
    {
-      for(int i=0; i<mSize; i++ )
+      for(int i=0; i<this->mSize; i++ )
       {
-         mpData[i] = irDefaultValue;
+         this->mpData[i] = irDefaultValue;
       }
    }
 
@@ -183,7 +183,7 @@ protected:
    //////////////////////////////////////////////////////////////////////////////
    void FindAdjLHole( int& i, SubArray<T>& orSubArray )
    {
-      rAssert((orSubArray.mpData >= mpData) &&  (orSubArray.mpData < (mpData+mSize)));
+      rAssert((orSubArray.mpData >= this->mpData) &&  (orSubArray.mpData < (this->mpData+this->mSize)));
 
       for( i=0; i<msMaxFreeHoles; i++ )
       {

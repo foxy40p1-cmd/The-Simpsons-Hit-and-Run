@@ -20,6 +20,10 @@ namespace Input
     const static unsigned int MaxPorts = 4;
     const static unsigned int MaxSlots = 1;
     #endif
+    #ifdef RAD_PS3
+    const static unsigned int MaxPorts = 7;
+    const static unsigned int MaxSlots = 1;
+    #endif
 
     #ifdef RAD_PS2
     enum USBID 

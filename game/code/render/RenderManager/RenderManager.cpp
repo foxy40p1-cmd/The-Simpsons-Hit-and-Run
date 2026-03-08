@@ -175,7 +175,7 @@ float MAX_BLUR = 0.15f; // Blur alpha will never go over this level
 float BLUR_GRADIENT = MAX_BLUR / ( 66.66f - 33.33f );
 
 // Vlad wants the PS2 to use a minimum amount of fixed blurring all the time
-#ifdef RAD_PS2
+#if defined(RAD_PS2) || defined(RAD_PS3)
 //float MIN_PS2_BLUR = 0.075f;
 float MIN_PS2_BLUR = 0.15f;
 float MIN_PS2_BLUR_CHEAT = 0.8f;
@@ -486,7 +486,7 @@ bool RenderManager::LoadAllNeededData
 void RenderManager::ContextUpdate( unsigned int iElapsedTime )
 {
     // On the PS2, use a minimum blur all the time    
-#ifdef RAD_PS2
+#if defined(RAD_PS2) || defined(RAD_PS3)
     ApplyPS2Blur();
 #endif
 
@@ -1805,7 +1805,7 @@ RenderManager::RenderManager() :
    radDbgWatchAddUnsignedInt( &mDebugRenderTime, "Debug Render All Layers micros", "RenderManager", NULL, NULL );
    radDbgWatchAddUnsignedInt( &mDebugSwapTime, "Debug Render Swap micros", "RenderManager", NULL, NULL );
    radDbgWatchAddBoolean( &mDebugDumpAllZones, "Dump All Zones", "RenderManager", NULL, NULL );
-#ifdef RAD_PS2
+#if defined(RAD_PS2) || defined(RAD_PS3)
    radDbgWatchAddFloat( &MIN_PS2_BLUR, "Minimum PS2 motion blur", "RenderManager", NULL, NULL );
 #endif
 
@@ -1953,7 +1953,7 @@ void RenderManager::ResetMoodLighting( bool Immediate )
     }
 }
 
-#ifdef RAD_PS2
+#if defined(RAD_PS2) || defined(RAD_PS3)
 // Bump up the blur to a minimum level on the PS2
 void RenderManager::ApplyPS2Blur()
 {
